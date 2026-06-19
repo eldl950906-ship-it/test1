@@ -112,7 +112,9 @@ function initHamburgerMenu(btn, nav, header) {
  * @param {boolean} open - true: 열기, false: 닫기
  * @param {HTMLElement} btn - 햄버거 버튼
  * @param {HTMLElement} nav - 메뉴 영역
+ * 
  */
+/*
 function toggleMenu(open, btn, nav) {
   if (open) {
     nav.classList.add('is-open');
@@ -124,7 +126,34 @@ function toggleMenu(open, btn, nav) {
     btn.setAttribute('aria-expanded', 'false'); // 스크린리더에 '닫힘' 상태 알림
   }
 }
+*/
+document.addEventListener('DOMContentLoaded', () => {
+  const hamburgerBtn = document.getElementById('hamburger-btn');
+  const navList = document.getElementById('nav-list');
 
+  // 버튼 클릭 시 메뉴 열기/닫기 토글
+  hamburgerBtn.addEventListener('click', () => {
+    // 햄버거 버튼 X 모양 변환 클래스 토글
+    hamburgerBtn.classList.toggle('is-active');
+    
+    // 메뉴 목록 슬라이드인 클래스 토글
+    navList.classList.toggle('is-open');
+    
+    // 웹 접근성(A11y)을 위한 속성 변경 (선택사항이지만 권장)
+    const isOpen = hamburgerBtn.classList.contains('is-active');
+    hamburgerBtn.setAttribute('aria-expanded', isOpen);
+  });
+
+  // 메뉴가 열려있을 때 화면 바깥이나 링크를 누르면 메뉴를 닫아주는 기능 (사용자 경험 향상)
+  const navLinks = document.querySelectorAll('.nav-link');
+  navLinks.forEach(link => {
+    link.addEventListener('click', () => {
+      hamburgerBtn.classList.remove('is-active');
+      navList.classList.remove('is-open');
+      hamburgerBtn.setAttribute('aria-expanded', 'false');
+    });
+  });
+});
 
 /* =========================================
   4. 서브 네비게이션 활성화
@@ -153,6 +182,7 @@ function initSubNavActive(links) {
     });
   });
 }
+
 
 
 /* =========================================

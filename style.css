@@ -1,0 +1,1244 @@
+/*
+  ========================================
+  LUSH KOREA 소개 페이지 — style.css
+  ========================================
+  이 파일은 페이지의 모든 시각적 스타일을 담당합니다.
+
+  목차 (Ctrl+F로 검색하세요):
+  1. CSS 변수 (디자인 토큰) .................. :root
+  2. 리셋 & 기본 설정 ........................ Reset
+  3. 접근성 유틸리티 ......................... Accessibility
+  4. 헤더 & 네비게이션 ....................... Header
+  5. 히어로 섹션 ............................. Hero
+  6. 소개 섹션 공통 .......................... Info Section
+  7. 소개 섹션 — 텍스트 영역 ................. Section Text
+  8. 통계 & 가치 컴포넌트 .................... Stats / Values
+  9. 배지 컴포넌트 ........................... Badges
+  10. 푸터 ................................... Footer
+  11. 맨 위로 가기 버튼 ...................... Scroll Top
+  12. 애니메이션 & 트랜지션 .................. Animations
+  13. 반응형 미디어 쿼리 ..................... Responsive
+*/
+
+
+/* =========================================
+  1. CSS 변수 (디자인 토큰)
+  - 색상, 폰트, 간격 등을 한 곳에서 관리합니다.
+  - :root 안의 값만 바꾸면 전체 페이지 스타일이 변경됩니다.
+========================================= */
+:root {
+  /* --- 색상 --- */
+  --color-black:      #1e1e1e;   /* 메인 검정 (헤더 배경, 어두운 섹션) */
+  --color-white:      #ffffff;   /* 순백 */
+  --color-offwhite:   #fcfbf9;   /* 아이보리 (밝은 섹션 배경) */
+  --color-gray-100:   #f4f1ea;   /* 아주 연한 회색 */
+  --color-gray-200:   #e4e1db;   /* 연한 회색 (구분선) */
+  --color-gray-400:   #918d85;   /* 중간 회색 (보조 텍스트) */
+  --color-gray-600:   #57544e;   /* 진한 회색 */
+  --color-gray-800:   #333230;   /* 아주 진한 회색 */
+
+  --color-green:      #3d7a5c;   /* 러쉬 시그니처 초록 (강조색) */
+  --color-green-light:#5ca37d;   /* 밝은 초록 (호버 효과) */
+  --color-green-pale: #e8f3ee;   /* 아주 연한 초록 (배지 배경) */
+
+  /* --- 타이포그래피 --- */
+  --font-display:  'Noto Sans KR', Georgia, serif;  /* 제목용 세리프 폰트 */
+  --font-body:     'Noto Sans KR', 'Apple SD Gothic Neo', sans-serif;  /* 본문용 폰트 */
+
+  /* --- 폰트 크기 (rem 기준: 1rem = 16px) --- */
+  --text-xs:    0.75rem;   /* 12px */
+  --text-sm:    0.8125rem; /* 13px */
+  --text-base:  0.9375rem; /* 15px */
+  --text-md:    1rem;      /* 16px */
+  --text-lg:    1.125rem;  /* 18px */
+  --text-xl:    1.375rem;  /* 22px */
+  --text-2xl:   1.75rem;   /* 28px */
+  --text-3xl:   2.25rem;   /* 36px */
+  --text-4xl:   3rem;      /* 48px */
+  --text-hero:  3.5rem;    /* 56px: 히어로 타이틀 */
+
+  /* --- 간격 --- */
+  --space-1:  4px;
+  --space-2:  8px;
+  --space-3:  12px;
+  --space-4:  16px;
+  --space-5:  20px;
+  --space-6:  24px;
+  --space-8:  32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-20: 80px;
+  --space-24: 96px;
+
+  /* --- 레이아웃 --- */
+  --max-width: 1280px;         /* 최대 너비 */
+  --header-height: 60px;       /* 헤더 높이 */
+  --sub-nav-height: 48px;      /* 서브 네비 높이 */
+
+  /* --- 경계 반경 (둥글기) --- */
+  --radius-sm:  4px;
+  --radius-md:  8px;
+  --radius-lg:  16px;
+  --radius-full: 9999px;       /* 완전히 둥근 알약 모양 */
+
+  /* --- 트랜지션 --- */
+  --transition-fast:   0.15s ease;
+  --transition-normal: 0.3s ease;
+  --transition-slow:   0.6s ease;
+
+  /* --- 그림자 --- */
+  --shadow-sm:  0 1px 3px rgba(0,0,0,0.08);
+  --shadow-md:  0 4px 16px rgba(0,0,0,0.10);
+  --shadow-lg:  0 8px 32px rgba(0,0,0,0.14);
+}
+
+
+/* =========================================
+  2. 리셋 & 기본 설정
+  - 브라우저마다 다른 기본 스타일을 통일합니다.
+========================================= */
+
+/* 모든 요소에 box-sizing 적용: padding/border가 너비에 포함됨 */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* 루트 폰트 크기 설정 */
+html {
+  font-size: 16px;
+  scroll-behavior: smooth; /* 앵커 링크 클릭 시 부드럽게 스크롤 */
+}
+
+/* 기본 본문 스타일 */
+body {
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  color: var(--color-black);
+  background-color: var(--color-white);
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;  /* 맥OS에서 폰트 부드럽게 */
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* 이미지는 기본적으로 블록 요소로, 부모 너비를 넘지 않게 */
+img {
+  display: block;
+  width: 100vw;
+  height: 800px;
+  object-fit: cover;      
+  object-position: center;
+}
+
+/* 링크 기본 스타일 제거 */
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* 목록 기본 스타일 제거 */
+ul, ol {
+  list-style: none;
+}
+
+/* 버튼 기본 스타일 초기화 */
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+  font-family: inherit;
+}
+
+
+/* =========================================
+  3. 접근성 유틸리티
+  - 키보드 사용자 및 스크린리더 지원
+========================================= */
+
+/* 건너뛰기 링크: 평소에는 숨기고 포커스 시에만 표시 */
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: 0;
+  padding: var(--space-2) var(--space-4);
+  background: var(--color-green);
+  color: var(--color-white);
+  font-size: var(--text-sm);
+  z-index: 9999;
+  transition: top var(--transition-fast);
+}
+.skip-link:focus {
+  top: 0; /* 탭키로 포커스 시 화면에 표시 */
+}
+
+
+/* =========================================
+  4. 헤더 & 네비게이션
+========================================= */
+
+/* 헤더 전체 컨테이너 */
+.site-header {
+  position: sticky;     /* 스크롤 해도 상단에 고정 */
+  top: 0;
+  z-index: 100;         /* 다른 요소 위에 표시 */
+  background: var(--color-white);
+  border-bottom: 1px solid var(--color-gray-200);
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow var(--transition-normal);
+}
+
+/* 스크롤 시 헤더에 그림자 강화 (JS에서 .scrolled 클래스 추가) */
+.site-header.scrolled {
+  box-shadow: var(--shadow-md);
+}
+
+/* 헤더 내부 레이아웃: 로고 + 메뉴 좌우 배치 */
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: var(--header-height);
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 var(--space-10);
+}
+
+/* LUSH 로고 */
+.logo {
+  font-family: var(--font-body);
+  font-size: 1.375rem;
+  font-weight: 900;
+  letter-spacing: 6px;
+  color: var(--color-black);
+  transition: color var(--transition-fast);
+}
+.logo:hover { color: var(--color-green); }
+
+/* 메인 네비게이션 목록 */
+.nav-list {
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+}
+
+/* 개별 네비게이션 링크 */
+.nav-link {
+  font-size: var(--text-sm);
+  font-weight: 400;
+  color: var(--color-gray-600);
+  letter-spacing: 0.3px;
+  padding: var(--space-2) 0;
+  position: relative;
+  transition: color var(--transition-fast);
+}
+
+/* 호버 시 색상 변경 */
+.nav-link:hover { color: var(--color-black); }
+
+/* 활성 링크 스타일 */
+.nav-link.active {
+  color: var(--color-black);
+  font-weight: 500;
+}
+
+/* 활성 링크 아래 밑줄 표시 */
+.nav-link.active::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--color-black);
+  border-radius: var(--radius-full);
+}
+
+/* CTA 링크 (기업 구매): 박스 스타일로 강조 */
+.nav-link--cta {
+  padding: var(--space-2) var(--space-4);
+  border: 1px solid var(--color-gray-200);
+  border-radius: var(--radius-full);
+  font-size: var(--text-xs);
+  color: var(--color-gray-600);
+}
+.nav-link--cta:hover {
+  background: var(--color-black);
+  color: var(--color-white);
+  border-color: var(--color-black);
+}
+.nav-link--cta.active::after { display: none; } /* CTA는 밑줄 없음 */
+
+/* 햄버거 버튼 (모바일에서만 표시) */
+.hamburger {
+  display: none;   /* 기본은 숨김, 모바일에서 표시 */
+  flex-direction: column;
+  gap: 5px;
+  padding: var(--space-2);
+}
+.hamburger-line {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: var(--color-black);
+  border-radius: var(--radius-full);
+  transition: transform var(--transition-normal), opacity var(--transition-normal);
+}
+
+/* 햄버거 버튼 활성화(메뉴 열림) 상태 — X 모양으로 변환 */
+.hamburger.is-active .hamburger-line:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+.hamburger.is-active .hamburger-line:nth-child(2) {
+  opacity: 0;
+}
+.hamburger.is-active .hamburger-line:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+/* 서브 네비게이션 (러쉬소개 하위 메뉴) */
+.sub-nav {
+  background: var(--color-gray-100);
+  border-top: 1px solid var(--color-gray-200);
+}
+
+.sub-nav-list {
+  display: flex;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 var(--space-10);
+}
+
+.sub-nav-link {
+  display: block;
+  font-size: var(--text-sm);
+  color: var(--color-gray-400);
+  padding: 14px var(--space-5);
+  border-bottom: 2px solid transparent;
+  transition: color var(--transition-fast), border-color var(--transition-fast);
+}
+.sub-nav-link:hover { color: var(--color-gray-800); }
+.sub-nav-link.active {
+  color: var(--color-black);
+  font-weight: 600;
+  border-bottom-color: var(--color-black);
+}
+
+/* ==========================================
+   모바일 반응형 스타일 (768px 이하)
+   ========================================== */
+@media (max-width: 768px) {
+  /* 1. 햄버거 버튼 표시 */
+  .hamburger {
+    display: flex; /* 기본 display: none에서 변경 */
+    background: none;
+    border: none;
+    cursor: pointer;
+    z-index: 1001; /* 메뉴보다 위에 위치 */
+  }
+
+  /* 2. 네비게이션 목록을 모바일 풀스크린(또는 드롭다운) 형태로 변환 */
+  .nav-list {
+    position: fixed;
+    top: 0;
+    right: -100%; /* 기본 상태: 화면 오른쪽 바깥에 숨김 */
+    width: 70%;    /* 모바일 메뉴 너비 (원하는 대로 조절 가능) */
+    height: 100vh;
+    background: var(--color-white, #ffffff);
+    box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+    
+    /* 세로 정렬 및 여백 설정 */
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding: 80px var(--space-6) var(--space-6) var(--space-6);
+    gap: var(--space-5);
+    
+    /* 열리고 닫힐 때 부드러운 애니메이션 */
+    transition: right var(--transition-normal, 0.3s ease);
+    z-index: 1000;
+  }
+
+  /* 3. 메뉴가 활성화 되었을 때 (화면에 나타남) */
+  .nav-list.is-open {
+    right: 0;
+  }
+
+  /* 4. 모바일에서의 링크 스타일 조정 */
+  .nav-link {
+    font-size: 1.1rem;
+    width: 100%;
+    display: block;
+    padding: var(--space-3) 0;
+  }
+
+  /* 활성 링크 밑줄 제거 (모바일에서는 어색할 수 있으므로 선택 사항) */
+  .nav-link.active::after {
+    display: none;
+  }
+  .nav-link.active {
+    color: var(--color-black);
+    font-weight: 700;
+  }
+
+  /* CTA 버튼(SEARCH, CART) 모바일 스타일 조정 */
+  .nav-link--cta {
+    text-align: center;
+    margin-top: var(--space-2);
+  }
+  
+  /* 서브 네비게이션이 있다면 모바일에서 가로 스크롤이 되도록 처리 */
+  .sub-nav-list {
+    padding: 0 var(--space-4);
+    overflow-x: auto;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+/* =========================================
+  5. 히어로 섹션
+  - 페이지 최상단의 대표 영역
+========================================= */
+
+.hero {
+  position: relative;
+  overflow: hidden;
+  background: var(--color-black);
+  background-size: cover;
+  color: var(--color-white);
+  text-align: center;
+  padding: var(--space-24) var(--space-10) var(--space-20);
+}
+
+/* 히어로 내용을 가운데 정렬하고 최대 너비 제한 */
+.hero-inner {
+  position: relative;
+  z-index: 2;          /* 배경 장식 요소보다 위에 표시 */
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+/* 히어로 상단 영문 소제목 */
+.hero-eyebrow {
+  font-size: var(--text-xs);
+  letter-spacing: 5px;
+  color: rgb(252, 251, 251);
+  text-transform: uppercase;
+  margin-bottom: var(--space-6);
+
+  /* 페이드인 + 위로 올라오는 애니메이션 */
+  animation: fadeInUp 0.8s ease both;
+}
+
+/* 히어로 타이틀 */
+.hero-title {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  margin-bottom: var(--space-8);
+  animation: fadeInUp 0.8s 0.1s ease both; /* 0.1초 딜레이 */
+}
+
+/* 한국어 타이틀: 작고 가볍게 */
+.hero-title--ko {
+  font-family: var(--font-body);
+  font-size: var(--text-lg);
+  font-weight: 300;
+  letter-spacing: 4px;
+  color:rgb(252, 251, 251);
+  text-transform: uppercase;
+}
+
+/* 영문 타이틀: 크고 굵게 (Playfair Display 적용) */
+.hero-title--en {
+  font-family: var(--font-display);
+  font-size: var(--text-hero);
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--color-white);
+  letter-spacing: -1px;
+}
+
+/* 인용문 블록 */
+.hero-quote {
+  border-top: 1px solid rgba(255,255,255,0.15);
+  border-bottom: 1px solid rgba(255,255,255,0.15);
+  padding: var(--space-8) var(--space-10);
+  margin: 0 auto var(--space-8);
+  animation: fadeInUp 0.8s 0.2s ease both; /* 0.2초 딜레이 */
+}
+
+.hero-quote p {
+  font-size: var(--text-md);
+  line-height: 2.2;
+  color: rgb(252, 251, 251);
+  font-weight: 300;
+  letter-spacing: 0.5px;
+}
+
+/* 히어로 하단 설명 문구 */
+.hero-desc {
+  font-size: var(--text-sm);
+  color: rgb(255, 255, 255);
+  line-height: 2;
+  animation: fadeInUp 0.8s 0.3s ease both; /* 0.3초 딜레이 */
+}
+
+/* 히어로 배경 장식: 반투명 원형 요소들 */
+.hero-decoration {
+  position: absolute;
+  inset: 0;    /* top/right/bottom/left 모두 0 */
+  z-index: 1;  /* 텍스트 뒤에 위치 */
+  pointer-events: none;  /* 클릭 통과 */
+}
+
+/* 개별 원형 장식 */
+.hero-decoration__circle {
+  position: absolute;
+  border-radius: 50%;
+  background: var(--color-green);
+  opacity: 0.06;  /* 아주 연하게 */
+}
+.hero-decoration__circle--1 {
+  width: 400px; height: 400px;
+  top: -150px; left: -100px;
+}
+.hero-decoration__circle--2 {
+  width: 300px; height: 300px;
+  bottom: -100px; right: -50px;
+  opacity: 0.04;
+}
+.hero-decoration__circle--3 {
+  width: 200px; height: 200px;
+  top: 50%; right: 10%;
+  transform: translateY(-50%);
+  opacity: 0.03;
+}
+
+
+/* =========================================
+  6. 소개 섹션 공통 스타일
+  - 이미지 + 텍스트가 반반 나누어진 레이아웃
+========================================= */
+
+/* 개별 소개 섹션 컨테이너 */
+.info-section {
+  display: flex;         /* 이미지와 텍스트를 가로로 배치 */
+  min-height: 520px;
+  border-bottom: 1px solid var(--color-gray-200);
+  padding-top: 80px;
+  padding-bottom: 80px;
+
+  /* 스크롤 reveal 초기 상태: 아래에서 올라오는 효과를 위해 숨김 */
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+/* JS에서 .is-visible 클래스 추가 시 나타남 */
+.info-section.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* 역방향 레이아웃: 이미지가 오른쪽 */
+.info-section--reverse {
+  flex-direction: row-reverse;
+}
+
+/* 밝은 배경 테마 */
+.info-section--light {
+  background: var(--color-offwhite);
+}
+
+/* 어두운 배경 테마 */
+.info-section--dark {
+  background: var(--color-green);
+}
+
+/* 이미지 영역: 전체 너비의 50% 차지 */
+.info-section__image-wrap {
+  flex: 1;               /* 남은 공간의 절반 */
+  position: relative;
+  overflow: hidden;
+  min-height: 400px;
+}
+
+/* 이미지 내부 래퍼: 이미지 확대 효과를 위해 */
+.info-section__image-inner {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+/* 실제 이미지 */
+.info-section__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;      /* 비율 유지하며 영역 꽉 채우기 */
+  object-position: center;
+  transition: transform 0.6s ease;
+}
+
+/* 섹션에 마우스 올리면 이미지 살짝 확대 */
+.info-section:hover .info-section__img {
+  transform: scale(1.04);
+}
+
+/* 이미지 위에 표시되는 배지 */
+.info-section__img-badge {
+  position: absolute;
+  bottom: var(--space-6);
+  left: var(--space-6);
+  background: var(--color-white);
+  color: var(--color-black);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-sm);
+}
+
+/* 어두운 이미지 배지 변형 */
+.info-section__img-badge--dark {
+  background: var(--color-black);
+  color: var(--color-white);
+}
+
+/* 이미지 로드 실패 시 폴백 배경색 (그라디언트) */
+.info-section:nth-child(odd) .info-section__image-wrap {
+  background: linear-gradient(135deg, #b5d5c0 0%, #8fbfa5 100%);
+}
+
+
+
+
+/* =========================================
+  7. 소개 섹션 — 텍스트 영역
+========================================= */
+
+/* 텍스트 영역: 전체 너비의 50%, 패딩으로 여백 확보 */
+.info-section__text {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: var(--space-16) var(--space-16) var(--space-16) var(--space-20);
+}
+
+/* 섹션 태그 (영문 소제목, 초록색 강조) */
+.section-tag {
+  display: inline-block;
+  font-size: var(--text-xs);
+  font-weight: 700;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--color-green);
+  margin-bottom: var(--space-4);
+}
+
+/* 밝은 테마의 섹션 태그 */
+.section-tag--light {
+  color: rgba(255,255,255,0.4);
+}
+
+/* 섹션 제목 (h2) */
+.section-title {
+  font-family: var(--font-display);
+  font-size: var(--text-3xl);
+  font-weight: 700;
+  line-height: 1.35;
+  color: var(--color-black);
+  margin-bottom: var(--space-6);
+  letter-spacing: -0.5px;
+}
+
+/* 밝은 배경 위의 섹션 제목 */
+.section-title--light {
+  color: var(--color-white);
+}
+
+/* 섹션 본문 단락 */
+.section-body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  margin-bottom: var(--space-8);
+}
+
+.section-body p {
+  font-size: var(--text-base);
+  color: var(--color-gray-600);
+  line-height: 1.9;
+}
+
+/* 어두운 배경 위의 본문 */
+.section-body--light p {
+  color: rgba(255,255,255,0.55);
+}
+
+
+/* =========================================
+  8. 통계 & 가치 컴포넌트
+========================================= */
+
+/* 통계 수치 행 (섹션 3: 신선함) */
+.stats-row {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  border: 1px solid var(--color-gray-200);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: var(--color-white);
+}
+
+/* 개별 통계 항목 */
+.stat-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-5) var(--space-4);
+  text-align: center;
+}
+
+/* 통계 숫자: 크고 굵게 */
+.stat-num {
+  font-family: var(--font-display);
+  font-size: var(--text-2xl);
+  font-weight: 700;
+  color: var(--color-green);
+  line-height: 1;
+  margin-bottom: var(--space-1);
+}
+
+/* 통계 레이블: 작고 연하게 */
+.stat-label {
+  font-size: var(--text-xs);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--color-gray-400);
+}
+
+/* 통계 항목 사이 구분선 */
+.stat-divider {
+  width: 1px;
+  height: 48px;
+  background: var(--color-gray-200);
+  flex-shrink: 0;
+}
+
+/* 가치 목록 (섹션 4: 이 모든 것은) */
+.value-list {
+  display: flex;
+  gap: var(--space-5);
+  margin-top: var(--space-4);
+}
+
+/* 개별 가치 항목 */
+.value-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+/* 가치 아이콘 (이모지) */
+.value-icon {
+  font-size: 1.75rem;
+  width: 56px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255,255,255,0.08);  /* 반투명 흰색 배경 */
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(255,255,255,0.12);
+}
+
+/* 가치 레이블 */
+.value-label {
+  font-size: var(--text-xs);
+  letter-spacing: 1px;
+  color: rgba(255,255,255,0.45);
+}
+
+
+/* =========================================
+  9. 배지 컴포넌트
+  - 키워드를 알약 모양으로 표시
+========================================= */
+
+/* 배지 목록 */
+.badge-list {
+  display: flex;
+  flex-wrap: wrap;  /* 좁으면 줄바꿈 */
+  gap: var(--space-2);
+}
+
+/* 개별 배지 */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  font-size: var(--text-xs);
+  font-weight: 500;
+  padding: 6px 14px;
+  border-radius: var(--radius-full);
+  background: var(--color-green-pale);
+  color: var(--color-green);
+  border: 1px solid rgba(61,122,92,0.15);
+  white-space: nowrap;  /* 줄바꿈 방지 */
+}
+
+/* 어두운 배경 위의 배지 */
+.badge--dark {
+  background: rgba(255,255,255,0.08);
+  color: rgba(255,255,255,0.65);
+  border-color: rgba(255,255,255,0.12);
+}
+
+
+/* =========================================
+  10. 푸터
+========================================= */
+
+/* 푸터 전체 영역 */
+.site-footer {
+  background: var(--color-black);
+  color: var(--color-gray-400);
+  padding: var(--space-16) 0 var(--space-10);
+  position: relative;  /* 맨 위로 버튼 기준점 */
+}
+
+/* 푸터 내부 컨테이너: 최대 너비 및 가운데 정렬 */
+.footer-inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 var(--space-10);
+}
+
+/* 푸터 로고 영역 */
+.footer-logo-wrap {
+  margin-bottom: var(--space-12);
+}
+
+.footer-logo {
+  display: inline-block;
+  font-size: 1.75rem;
+  font-weight: 900;
+  letter-spacing: 8px;
+  color: var(--color-white);
+  margin-bottom: var(--space-2);
+  transition: color var(--transition-fast);
+}
+.footer-logo:hover { color: var(--color-green-light); }
+
+.footer-slogan {
+  font-size: var(--text-xs);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.2);
+}
+
+/* 푸터 그리드: 4열 배치 */
+.footer-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-8);
+  margin-bottom: var(--space-12);
+  padding-bottom: var(--space-12);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+/* 개별 푸터 컬럼 */
+.footer-col__title {
+  font-size: var(--text-xs);
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.5);
+  margin-bottom: var(--space-4);
+}
+
+/* 전화번호 */
+.footer-phone {
+  font-size: var(--text-xl);
+  font-weight: 700;
+  color: var(--color-white);
+  font-family: var(--font-display);
+  margin-bottom: var(--space-2);
+}
+
+/* 이메일 링크 */
+.footer-email {
+  display: block;
+  font-size: var(--text-sm);
+  color: var(--color-green-light);
+  margin-bottom: var(--space-3);
+  transition: color var(--transition-fast);
+}
+.footer-email:hover { color: var(--color-white); }
+
+/* 운영 시간 */
+.footer-hours {
+  font-size: var(--text-sm);
+  color: rgba(255,255,255,0.3);
+  line-height: 1.8;
+}
+
+/* SNS 목록 */
+.social-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.social-link {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--text-sm);
+  color: rgba(255,255,255,0.4);
+  transition: color var(--transition-fast);
+}
+.social-link:hover { color: var(--color-white); }
+
+.social-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  background: rgba(255,255,255,0.06);
+  border-radius: var(--radius-sm);
+  font-size: 12px;
+  font-style: normal;
+}
+
+/* 정책 링크 목록 */
+.policy-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.policy-link {
+  font-size: var(--text-sm);
+  color: rgba(255,255,255,0.35);
+  transition: color var(--transition-fast);
+}
+.policy-link:hover { color: var(--color-white); }
+
+/* 법적 고지 영역 */
+.footer-legal {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.footer-legal p {
+  font-size: var(--text-xs);
+  color: rgba(255,255,255,0.2);
+  line-height: 1.6;
+}
+
+/* 저작권 문구: 가장 연하게 */
+.footer-copyright {
+  margin-top: var(--space-3);
+  letter-spacing: 0.5px;
+}
+
+
+/* =========================================
+  11. 맨 위로 가기 버튼
+  - 스크롤 내리면 우측 하단에 나타남 (JS로 제어)
+========================================= */
+.scroll-top-btn {
+  position: fixed;
+  bottom: var(--space-8);
+  right: var(--space-8);
+  width: 48px;
+  height: 48px;
+  background: var(--color-green);
+  color: var(--color-white);
+  font-size: var(--text-lg);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-md);
+  transition: background var(--transition-fast), transform var(--transition-fast), opacity var(--transition-normal);
+
+  /* 초기에는 숨김 */
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(16px);
+}
+
+/* JS에서 .is-visible 클래스 추가 시 나타남 */
+.scroll-top-btn.is-visible {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+.scroll-top-btn:hover {
+  background: var(--color-green-light);
+  transform: translateY(-3px);
+}
+
+
+/* =========================================
+  12. 애니메이션 & 트랜지션 정의
+========================================= */
+
+/* 아래에서 위로 올라오며 나타나는 기본 애니메이션 */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 왼쪽에서 나타나는 애니메이션 (선택적 사용) */
+@keyframes fadeInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+
+/* =========================================
+  13. 반응형 미디어 쿼리
+  - 화면 크기별로 레이아웃을 조정합니다.
+  - 큰 화면 → 태블릿 → 모바일 순서
+========================================= */
+
+/* ── 태블릿 (1024px 이하) ── */
+@media (max-width: 1024px) {
+  :root {
+    --text-hero: 2.5rem;   /* 히어로 폰트 크기 줄임 */
+    --text-3xl:  1.75rem;  /* 섹션 제목 크기 줄임 */
+  }
+
+  .header-inner {
+    padding: 0 var(--space-6);
+  }
+
+  .sub-nav-list {
+    padding: 0 var(--space-6);
+  }
+
+  /* 소개 섹션 텍스트 패딩 줄임 */
+  .info-section__text {
+    padding: var(--space-12) var(--space-10);
+  }
+
+  /* 푸터 그리드를 2열로 변경 */
+  .footer-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* ── 모바일 (768px 이하) ── */
+@media (max-width: 768px) {
+  :root {
+    --text-hero: 2rem;
+    --text-3xl:  1.5rem;
+  }
+
+  /* ──── 헤더: 모바일 메뉴 ──── */
+  .hamburger { display: flex; }  /* 햄버거 버튼 표시 */
+
+  /* 메뉴를 세로로 전환, 기본에는 숨김 */
+  .main-nav {
+    position: absolute;
+    top: var(--header-height);
+    left: 0;
+    right: 0;
+    background: var(--color-white);
+    border-bottom: 1px solid var(--color-gray-200);
+    padding: var(--space-4) 0;
+    box-shadow: var(--shadow-md);
+
+    /* 기본 숨김 상태 */
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height var(--transition-normal);
+  }
+
+  /* JS에서 .is-open 추가 시 메뉴 열림 */
+  .main-nav.is-open { max-height: 400px; }
+
+  .hamburger {
+    display: flex; /* 기본 display: none에서 변경 */
+    background: none;
+    border: none;
+    cursor: pointer;
+    z-index: 1001; /* 메뉴보다 위에 위치 */
+  }
+
+  /* 2. 네비게이션 목록을 모바일 풀스크린(또는 드롭다운) 형태로 변환 */
+  .nav-list {
+    position: fixed;
+    top: 0;
+    right: -100%; /* 기본 상태: 화면 오른쪽 바깥에 숨김 */
+    width: 70%;    /* 모바일 메뉴 너비 (원하는 대로 조절 가능) */
+    height: 100vh;
+    background: var(--color-white, #ffffff);
+    box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+    
+    /* 세로 정렬 및 여백 설정 */
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding: 80px var(--space-6) var(--space-6) var(--space-6);
+    gap: var(--space-5);
+    
+    /* 열리고 닫힐 때 부드러운 애니메이션 */
+    transition: right var(--transition-normal, 0.3s ease);
+    z-index: 1000;
+  }
+
+  /* 3. 메뉴가 활성화 되었을 때 (화면에 나타남) */
+  .nav-list.is-open {
+    right: 0;
+  }
+
+  /* 4. 모바일에서의 링크 스타일 조정 */
+  .nav-link {
+    font-size: 1.1rem;
+    width: 100%;
+    display: block;
+    padding: var(--space-3) 0;
+  }
+
+  /* 활성 링크 밑줄 제거 (모바일에서는 어색할 수 있으므로 선택 사항) */
+  .nav-link.active::after {
+    display: none;
+  }
+  .nav-link.active {
+    color: var(--color-black);
+    font-weight: 700;
+  }
+
+  /* CTA 버튼(SEARCH, CART) 모바일 스타일 조정 */
+  .nav-link--cta {
+    text-align: center;
+    margin-top: var(--space-2);
+  }
+  
+  /* 서브 네비게이션이 있다면 모바일에서 가로 스크롤이 되도록 처리 */
+  .sub-nav-list {
+    padding: 0 var(--space-4);
+    overflow-x: auto;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* ──── 히어로: 패딩 줄임 ──── */
+  .hero {
+    padding: var(--space-16) var(--space-6) var(--space-12);
+  }
+  .hero-quote {
+    padding: var(--space-6);
+  }
+  .hero-quote p {
+    font-size: var(--text-sm);
+  }
+
+  /* ──── 소개 섹션: 세로 배치로 전환 ──── */
+  .info-section {
+    flex-direction: column;  /* 가로 → 세로 배치 */
+    min-height: auto;
+  }
+  .info-section--reverse {
+    flex-direction: column;  /* 역방향도 세로로 */
+  }
+
+  /* 이미지 높이 고정 */
+  .info-section__image-wrap {
+    min-height: 280px;
+  }
+
+  /* 텍스트 패딩 줄임 */
+  .info-section__text {
+    padding: var(--space-10) var(--space-6);
+  }
+
+  /* 통계 행: 폰트 크기 줄임 */
+  .stat-num { font-size: var(--text-xl); }
+
+  /* 가치 목록: 2열 그리드로 변환 */
+  .value-list {
+    flex-wrap: wrap;
+    gap: var(--space-3);
+  }
+  .value-item { flex: 1; min-width: calc(50% - var(--space-3)); }
+
+  /* ──── 푸터: 1열 배치 ──── */
+  .footer-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .footer-inner {
+    padding: 0 var(--space-6);
+  }
+
+  /* 맨 위로 버튼 위치 조정 */
+  .scroll-top-btn {
+    bottom: var(--space-5);
+    right: var(--space-5);
+    width: 44px;
+    height: 44px;
+  }
+}
+
+/* ── 소형 모바일 (480px 이하) ── */
+@media (max-width: 480px) {
+  :root {
+    --text-hero: 1.75rem;
+  }
+
+  .hero-title--en { letter-spacing: -0.5px; }
+  .section-title  { font-size: 1.375rem; }
+
+  /* 통계 행: 세로 배치로 전환 */
+  .stats-row      { flex-direction: column; }
+  .stat-divider   { width: 100%; height: 1px; }
+}
+
+/* ── 고해상도 화면: 가독성 향상 ── */
+@media (min-width: 1440px) {
+  :root { --text-hero: 4rem; }
+}
+
+/* ── 다크모드 대응 (시스템 설정 감지) ── */
+@media (prefers-color-scheme: dark) {
+  /* 별도 다크모드 스타일이 필요하면 여기에 추가하세요 */
+  /* 현재 페이지는 흰 배경 + 검정 섹션 혼합이라 별도 처리 최소화 */
+}
+
+/* ── 접근성: 애니메이션 줄이기 설정 감지 ── */
+@media (prefers-reduced-motion: reduce) {
+  /* 사용자가 움직임 감소를 원할 때 애니메이션 비활성화 */
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
