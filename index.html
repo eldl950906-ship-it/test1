@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<!--
+  ========================================
+  LUSH KOREA 소개 페이지 — index.html
+  ========================================
+  이 파일은 페이지의 뼈대(구조)를 담당합니다.
+  - 헤더(네비게이션)
+  - 메인 콘텐츠 (히어로, 소개 섹션들)
+  - 푸터
+  스타일은 style.css, 동작은 script.js에서 관리합니다.
+-->
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="러쉬는 자연에서 얻은 신선한 재료와 동물실험을 하지 않는 정직한 재료를 사용하여 모든 제품을 손으로 만듭니다.">
+  <meta property="og:title" content="프레쉬 핸드메이드 코스메틱 러쉬">
+  <meta property="og:description" content="365일 신선함을 선사해 드려요.">
+  <title>크러디소개 | 프레쉬 핸드메이드 코스메틱 크러디</title>
+
+  <!-- 구글 폰트: Noto Sans KR (한국어), Playfair Display (영문 장식체) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet">
+
+  <!-- 외부 CSS 연결 -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- =============================================
+    건너뛰기 링크: 키보드/스크린리더 접근성 지원
+  ============================================== -->
+  <a href="#main-content" class="skip-link">본문 바로가기</a>
+
+  <!-- =============================================
+    헤더: 로고 + 글로벌 네비게이션
+  ============================================== -->
+  <header class="site-header" id="site-header">
+    <div class="header-inner">
+
+      <!-- 로고 -->
+      <a href="#" class="logo" aria-label="LUSH 홈으로 이동">CRUDY</a>
+
+      <!-- 햄버거 메뉴 버튼 (모바일용) -->
+      <button class="hamburger" id="hamburger-btn" aria-label="메뉴 열기" aria-expanded="false" aria-controls="main-nav">
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+      </button>
+
+      <!-- 글로벌 네비게이션 메뉴 -->
+      <nav class="main-nav" id="main-nav" role="navigation" aria-label="주요 메뉴">
+        <ul class="nav-list">
+          <li><a href="#" class="nav-link active">Brand</a></li>
+          <li><a href="#" class="nav-link">Shop</a></li>
+          <li><a href="#" class="nav-link">Community</a></li>
+          <li><a href="#" class="nav-link">Login / Join</a></li>
+          <li><a href="#" class="nav-link nav-link--cta">SEARCH</a></li>
+          <li><a href="#" class="nav-link nav-link--cta">CART</a></li>
+        </ul>
+      </nav>
+    </div>
+
+
+  <!-- =============================================
+    메인 콘텐츠 영역
+  ============================================== -->
+  <main id="main-content">
+
+    <!-- -----------------------------------------------
+      히어로 섹션: 페이지 상단의 대표 문구 영역
+    ----------------------------------------------- -->
+    <section class="hero" aria-label="러쉬 소개 메인">
+      <div class="hero-inner">
+        <!-- 상단 영문 태그라인 -->
+        <p class="hero-eyebrow"></p>
+
+        <!-- 메인 타이틀 -->
+        <h1 class="hero-title">
+          <span class="hero-title--ko"></span>
+          <span class="hero-title--en">완벽하지 않아도 좋아,<br>본질은 더 신선하니까</span>
+        </h1>
+
+        <!-- 핵심 인용문 -->
+        <blockquote class="hero-quote">
+          <p>
+           공정 거래로 농가와 상생하고, 과대 포장을 줄여 지구를 지킵니다<br>
+           인권을 존중하는 투명한 생산 방식을 통해<br>
+           당신과 세상이 함께 아름다워지는 가치를 실천합니다.
+          </p>
+        </blockquote>
+
+        <!-- 히어로 설명문 -->
+        <p class="hero-desc">
+          <br>
+        </p>
+      </div>
+
+      <!-- 히어로 배경 장식 요소 (CSS로 스타일링) -->
+      <div class="hero-decoration" aria-hidden="true">      
+        <img src="imgs/크러디비누2.png" alt="못난이 과일 친환경 비누 제품 이미지" class="hero-main-img">
+        <div class="hero-decoration__circle hero-decoration__circle--1"></div>
+        <div class="hero-decoration__circle hero-decoration__circle--2"></div>
+        <div class="hero-decoration__circle hero-decoration__circle--3"></div>
+      </div>
+    </section>
+
+    <!-- -----------------------------------------------
+      소개 섹션 1: 동물실험 반대
+      - 이미지(왼쪽) + 텍스트(오른쪽) 레이아웃
+    ----------------------------------------------- -->
+    <section class="info-section info-section--light js-reveal" id="section-animal">
+      <div class="info-section__image-wrap">
+        <div class="info-section__image-inner">
+          <!-- 실제 이미지: 로드 실패 시 CSS 폴백 배경색 표시 -->
+          <img
+            src="imgs/딸기.png"
+            alt="초록 허브 잎 위에 놓인 러쉬 제품"
+            class="info-section__img"
+            loading="lazy"
+          >
+          <!-- 이미지 위 오버레이 배지 -->
+          <div class="info-section__img-badge">
+            <span>Cruelty Free</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="info-section__text">
+        <!-- 섹션 태그 (영문 소제목) -->
+        <span class="section-tag">No Animal Testing</span>
+        <!-- 섹션 제목 -->
+        <h2 class="section-title">크러디는 완벽함 대신<br>본질을 선택합니다.</h2>
+        <!-- 본문 내용 -->
+        <div class="section-body">
+          <p>크러디는 단지 모양이 예쁘지 않다는 이유로 외면받던 못난이 농산물에<br>새로운 생명력을 불어넣는 업사이클링 뷰티 브랜드입니다.</p>
+          <p>크러디는 어떤 이유에서도 동물실험을 하지 않으며,<br> 자연을 훼손하지 않는 지속 가능한 원료만을 고집합니다.<br>피투박하지만 가장 자연에 가까운 방식으로 당신의 일상에 건강한 변화를 선물합니다.</p>
+        </div>
+        <!-- 키워드 배지 목록 -->
+        <ul class="badge-list" aria-label="관련 키워드">
+          <li><span class="badge">🐰 Cruelty Free</span></li>
+          <li><span class="badge">🍎 Upcycled Beauty</span></li>
+          <li><span class="badge">🌿 Zero Waste</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- -----------------------------------------------
+      소개 섹션 2: 혁신적 제품
+      - 텍스트(왼쪽) + 이미지(오른쪽) 역방향 레이아웃
+      - 어두운 배경 테마
+    ----------------------------------------------- -->
+    <section class="info-section info-section--dark info-section--reverse js-reveal" id="section-innovation">
+      <div class="info-section__image-wrap">
+        <div class="info-section__image-inner">
+          <img
+            src="imgs/사과비누.png"
+            alt="색깔 다양한 배쓰 밤과 러쉬 제품들"
+            class="info-section__img"
+            loading="lazy"
+          >
+          <div class="info-section__img-badge info-section__img-badge--dark">
+            <span>UPCYCLING</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="info-section__text">
+        <span class="section-tag section-tag--light">UPCYCLING</span>
+        <h2 class="section-title section-title--light">크러디는 가장 자연스러운<br>혁신을 제안합니다.</h2>
+        <div class="section-body section-body--light">
+          <p>크러디는 단지 모양이 예쁘지 않다는 이유로 외면받던 못난이 농산물에<br>새로운 생명력을 불어넣는 업사이클링 뷰티 브랜드입니다.</p>
+          <p>특히 불필요한 수분과 화학 포장을 없앤 고체 형태의 다양한<br>‘제로 웨이스트(Zero-Waste)’ 제품을 개발하며,<br>화장품 산업과 당신의 일상에 건강한 변화를 선물합니다.</p>
+        </div>
+        <ul class="badge-list badge-list--dark" aria-label="관련 키워드">
+          <li><span class="badge badge--dark">🧼 고체 비누</span></li>
+          <li><span class="badge badge--dark">⚪ 고체 치약</span></li>
+          <li><span class="badge badge--dark">🍎 업사이클 원료</span></li>
+          <li><span class="badge badge--dark">📦 제로 포장</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- -----------------------------------------------
+      소개 섹션 3: 신선한 원료
+      - 이미지(왼쪽) + 텍스트(오른쪽)
+      - 밝은 배경 테마
+    ----------------------------------------------- -->
+    <section class="info-section info-section--light js-reveal" id="section-fresh">
+      <div class="info-section__image-wrap">
+        <div class="info-section__image-inner">
+          <img
+            src="imgs/딸기비누.jpg"
+            alt="신선한 과일과 채소 원료"
+            class="info-section__img"
+            loading="lazy"
+          >
+          <div class="info-section__img-badge">
+            <span>SUSTAINABILITY</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="info-section__text">
+        <span class="section-tag">SUSTAINABILITY</span>
+        <h2 class="section-title">지속 가능함은<br>크러디 철학의 핵심입니다.</h2>
+        <div class="section-body">
+          <p>크러디는 전 제품에 오직 100% 식물성 원료만을 사용하며,<br>자연을 훼손하지 않는 지속 가능한 원료만을 고집합니다.</p>
+          <p>모양이 예쁘지 않다는 이유로 외면받던 못난이 농산물에<br>새로운 생명력을 불어넣어 피부와 지구 모두가 숨 쉴 수 있는 뷰티를 선보입니다.</p>
+        </div>
+        <!-- 통계 수치 강조 블록 -->
+        <div class="stats-row">
+          <div class="stat-item">
+            <span class="stat-num">100%</span>
+            <span class="stat-label">UPCYCLED</span>
+          </div>
+          <div class="stat-divider" aria-hidden="true"></div>
+          <div class="stat-item">
+            <span class="stat-num">0%</span>
+            <span class="stat-label">ANIMAL TESTING</span>
+          </div>
+          <div class="stat-divider" aria-hidden="true"></div>
+          <div class="stat-item">
+            <span class="stat-num">0%</span>
+            <span class="stat-label">PLASTIC WASTE</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- -----------------------------------------------
+      소개 섹션 4: 러쉬의 가치와 미래
+      - 텍스트(왼쪽) + 이미지(오른쪽) 역방향
+      - 어두운 배경 테마
+    ----------------------------------------------- -->
+    <section class="info-section info-section--dark info-section--reverse js-reveal" id="section-value">
+      <div class="info-section__image-wrap">
+        <div class="info-section__image-inner">
+          <img
+            src="imgs/세안.png"
+            alt="러쉬 매장 직원들의 모습"
+            class="info-section__img"
+            loading="lazy"
+          >
+          <div class="info-section__img-badge info-section__img-badge--dark">
+            <span>Our Values</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="info-section__text">
+        <span class="section-tag section-tag--light">Our Values</span>
+        <h2 class="section-title section-title--light">이 모든 변화는</h2>
+        <div class="section-body section-body--light">
+          <p>'투박함 속에 진정한 가치가 있다'는 믿음과,<br>정직하게 땀 흘린<br>우리 농가의 진심이 연결되어 시작되었습니다.</p>
+          <p>크러디는 양이 예쁘지 않아 외면받던 자원에 새로운 생명력을 불어넣으며,<br>자연과 사람의 일상이 건강하게 공존하는 내일을 위해<br>끊임없이 혁신해 나갑니다.</p>
+        </div>
+        <!-- 가치 아이콘 행 -->
+        <ul class="value-list" aria-label="러쉬의 핵심 가치">
+          <li class="value-item">
+            <span class="value-icon" aria-hidden="true">🌱</span>
+            <span class="value-label">가치소비</span>
+          </li>
+          <li class="value-item">
+            <span class="value-icon" aria-hidden="true">🌿</span>
+            <span class="value-label">비건포뮬러</span>
+          </li>
+          <li class="value-item">
+            <span class="value-icon" aria-hidden="true">⚪</span>
+            <span class="value-label">제로웨이스트</span>
+          </li>
+          <li class="value-item">
+            <span class="value-icon" aria-hidden="true">🤝</span>
+            <span class="value-label">상생경영</span>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- =============================================
+    푸터: 하단 정보 영역
+  ============================================== -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="footer-inner">
+
+      <!-- 푸터 로고 -->
+      <div class="footer-logo-wrap">
+        <a href="#" class="footer-logo" aria-label="LUSH 홈으로 이동">CRUDY</a>
+        <p class="footer-slogan">Fresh Handmade Cosmetics</p>
+      </div>
+
+      <!-- 푸터 컨텐츠 그리드 -->
+      <div class="footer-grid">
+
+        <!-- 고객센터 정보 -->
+        <div class="footer-col">
+          <h3 class="footer-col__title">고객센터</h3>
+          <p class="footer-phone">1644-3217</p>
+          <a href="mailto:webmaster@lush.co.kr" class="footer-email">webmaster@crudy.co.kr</a>
+          <p class="footer-hours">
+            상담전화 13:00 ~ 16:00 (평일)<br>
+            상담톡 10:00 ~ 16:00 (평일)
+          </p>
+        </div>
+
+        <!-- 기업선물 정보 -->
+        <div class="footer-col">
+          <h3 class="footer-col__title">희망잇기</h3>
+          <p class="footer-phone">070-1234-5678</p>
+          <a href="mailto:order@lush.co.kr" class="footer-email">order@crudy.co.kr</a>
+        </div>
+
+        <!-- SNS / 소셜 링크 -->
+        <div class="footer-col">
+          <h3 class="footer-col__title">소셜 미디어</h3>
+          <ul class="social-list">
+            <li>
+              <a  class="social-link" target="_blank" rel="noopener noreferrer" aria-label="유튜브 채널 (새 창 열림)">
+                <span class="social-icon" aria-hidden="true">▶</span> YouTube
+              </a>
+            </li>
+            <li>
+              <a  class="social-link" target="_blank" rel="noopener noreferrer" aria-label="카카오 채널 (새 창 열림)">
+                <span class="social-icon" aria-hidden="true">💬</span> 카카오채널
+              </a>
+            </li>
+            <li>
+              <a  class="social-link" target="_blank" rel="noopener noreferrer" aria-label="네이버 블로그 (새 창 열림)">
+                <span class="social-icon" aria-hidden="true">N</span> 네이버블로그
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <!-- 사이트 정책 링크 -->
+        <div class="footer-col">
+          <h3 class="footer-col__title">사이트 정책</h3>
+          <ul class="policy-list">
+            <li><a href="#" class="policy-link">개인정보처리방침</a></li>
+            <li><a href="#" class="policy-link">영상정보관리지침</a></li>
+            <li><a href="#" class="policy-link">이용약관</a></li>
+            <li><a href="#" class="policy-link">공지사항</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- 회사 법적 고지 정보 -->
+      <div class="footer-legal">
+        <p>서울특별시 성동구 연무장길 101, 크러디 빌딩 1층 (주식회사 크러디)</p>
+        <p>사이트 운영자: 주식회사 크러디 &nbsp;|&nbsp; 대표이사: 박지현 &nbsp;|&nbsp; 사업자등록번호: 123-45-67890</p>
+        <p>통신판매업 신고번호: 2026-서울성동-0001 &nbsp;|&nbsp; 개인정보보호책임자: 박임자</p>
+        <p class="footer-copyright">COPYRIGHT © CRUDY.CO.KR ALL RIGHTS RESERVED.</p>
+      </div>
+    </div>
+
+    <!-- 맨 위로 가기 버튼 -->
+    <button class="scroll-top-btn" id="scroll-top-btn" aria-label="페이지 맨 위로 이동">
+      ↑
+    </button>
+  </footer>
+
+  <!-- 외부 JS 연결 (body 끝에 위치시켜 HTML 파싱 후 실행) -->
+  <script src="script.js"></script>
+</body>
+</html>
